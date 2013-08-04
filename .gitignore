@@ -15,3 +15,13 @@
 *.exe
 *.out
 *.app
+sntpd
+
+# Qt Creator
+*.pro
+*.pro.*
+
+# Temp files
+*~
+*.swp
+*.autosave
