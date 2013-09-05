@@ -8,7 +8,8 @@
 #include <netinet/in.h>
 #include "server.h"
 
-fixedpt64 ntp_time() {
+fixedpt64 ntp_time()
+{
     struct timeval tv;
     gettimeofday(&tv, NULL);
     double usecf = (double)tv.tv_usec / 1000000;    // Перевод микросекунд в доли секунды
@@ -18,7 +19,8 @@ fixedpt64 ntp_time() {
     return res;
 }
 
-void make_ntp_msg(ntpmsg *msg) {
+void make_ntp_msg(ntpmsg *msg)
+{
     msg->status = (msg->status & ~LI_MASK);     // Установка LI в 0
     msg->status = (msg->status & ~MODE_MASK) | 4;    // Установка режима в 4 (сервер)
     msg->stratum = 1;
@@ -32,7 +34,8 @@ void make_ntp_msg(ntpmsg *msg) {
     msg->transtime = ntp_time();
 }
 
-int init_server(int *sockfd, sockaddr_in *servaddr) {
+int init_server(int *sockfd, sockaddr_in *servaddr)
+{
     *sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (*sockfd < 0) {
         syslog(LOG_DEBUG, "opening socket: %s", strerror(errno));
@@ -55,7 +58,8 @@ int init_server(int *sockfd, sockaddr_in *servaddr) {
     return 0;
 }
 
-int server() {
+int server()
+{
     int sockfd;
     sockaddr_in servaddr;
     if (init_server(&sockfd, &servaddr) < 0) {
